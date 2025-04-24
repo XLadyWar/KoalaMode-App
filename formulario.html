@@ -7,41 +7,70 @@
     <link rel="stylesheet" href="formulario.css" />
     <link rel="stylesheet" href="style.css" />
 
+     <!-- fuentes -->
+     <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://use.typekit.net/apk3czf.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <main class="form-wrapper">
+      <a href="index.html">
         <div class="logo-top">koalamode</div>
-        
+        </a>
+
         <!-- Paso 1 -->
-        <section class="form-section">
+      
+        <section class="form-section" id="paso1">
           <div class="form-card">
             <h2>Ingresa tu nombre</h2>
             <input type="text" placeholder="Tu nombre aquí" />
+            <a href="#paso2" class="next-button">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
+                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+                </svg>
+            </a>
           </div>
         </section>
     
         <!-- Paso 2 -->
-        <section class="form-section">
+        <section class="form-section" id="paso2">
           <div class="form-card">
             <h2>Configurar Recordatorio</h2>
             <label>Minutos de enfoque</label>
             <input type="number" min="1" placeholder="Ej. 25" />
+            <a href="#paso3" class="next-button">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
+                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+                </svg>
+            </a>
           </div>
         </section>
     
         <!-- Paso 3 -->
-        <section class="form-section">
+        <section class="form-section" id="paso3">
           <div class="form-card">
             <h2>Configurar Koala Mode</h2>
             <label>Minutos de descanso</label>
             <input type="number" min="1" placeholder="Ej. 5" />
+            <a href="#paso4" class="next-button">
+              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
+                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+                </svg>
+                
+            </a>
           </div>
         </section>
     
         <!-- Paso 4 -->
-        <section class="form-section">
+        <section class="form-section" id="paso4">
           <div class="form-card">
-            <h2>Selecciona tus categorías</h2>
+            
             <div class="category-grid">
               <!-- Aquí van tus íconos -->
               <div class="category-item">
@@ -61,6 +90,9 @@
                 <span>Autocuidado</span>
               </div>
             </div>
+            <a href="#" class="final">
+              <button class="final-button">Finalizar</button>
+            </a>
           </div>
         </section>
     

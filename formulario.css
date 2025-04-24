@@ -5,6 +5,10 @@ body{
 .form-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+.form-wrapper h2,label {
+  color: #FFF;
 }
 
 .form-section {
@@ -14,7 +18,7 @@ body{
   align-items: center;
 }
 
-.form-section:nth-child(1) {
+/* .form-section:nth-child(1) {
 
 }
 
@@ -28,24 +32,29 @@ body{
 
 .form-section:nth-child(4) {
   
-}
+} */
 
 .form-card {
-  background-color: white;
+  background-color:rgba(45, 45, 45, 0.26);
   border-radius: 20px;
+  border: 1px solid #FFF;
   padding: 2rem;
   max-width: 90%;
-  width: 400px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 50vw;
   text-align: center;
+  backdrop-filter: blur(25px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 input {
   margin-top: 1rem;
   padding: 0.8rem;
   width: 100%;
-  border: 1px solid var(--koala-text);
   border-radius: 10px;
+  border: 1px solid #FFF;
+  background: rgba(255, 255, 255, 0.20);
   font-family: inherit;
 }
 
@@ -68,4 +77,19 @@ input {
   width: 40px;
   height: 40px;
   margin-bottom: 0.5rem;
+}
+
+.next-button{
+  margin-top:10px;
+  right: 0;
+}
+
+.final button{
+  color: #FFF;
+  border: 1px solid #FFF;
+  margin-top: 10px;
+}
+
+.next-button svg {
+  transform: rotate(-90deg);
 }
