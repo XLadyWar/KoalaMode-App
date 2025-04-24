@@ -1,0 +1,71 @@
+body{
+    background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-peach) 40%, var(--bg-greenish) 100%);
+  }
+  
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-section:nth-child(1) {
+
+}
+
+.form-section:nth-child(2) {
+  
+}
+
+.form-section:nth-child(3) {
+  
+}
+
+.form-section:nth-child(4) {
+  
+}
+
+.form-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+input {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  width: 100%;
+  border: 1px solid var(--koala-text);
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.category-item {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.category-item img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+}

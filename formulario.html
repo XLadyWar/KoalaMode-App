@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoalaMode | Formulario </title>
+    <link rel="stylesheet" href="formulario.css" />
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+    <main class="form-wrapper">
+        <div class="logo-top">koalamode</div>
+        
+        <!-- Paso 1 -->
+        <section class="form-section">
+          <div class="form-card">
+            <h2>Ingresa tu nombre</h2>
+            <input type="text" placeholder="Tu nombre aquí" />
+          </div>
+        </section>
+    
+        <!-- Paso 2 -->
+        <section class="form-section">
+          <div class="form-card">
+            <h2>Configurar Recordatorio</h2>
+            <label>Minutos de enfoque</label>
+            <input type="number" min="1" placeholder="Ej. 25" />
+          </div>
+        </section>
+    
+        <!-- Paso 3 -->
+        <section class="form-section">
+          <div class="form-card">
+            <h2>Configurar Koala Mode</h2>
+            <label>Minutos de descanso</label>
+            <input type="number" min="1" placeholder="Ej. 5" />
+          </div>
+        </section>
+    
+        <!-- Paso 4 -->
+        <section class="form-section">
+          <div class="form-card">
+            <h2>Selecciona tus categorías</h2>
+            <div class="category-grid">
+              <!-- Aquí van tus íconos -->
+              <div class="category-item">
+                <img src="assets/creative.svg" alt="Creatividad" />
+                <span>Creatividad</span>
+              </div>
+              <div class="category-item">
+                <img src="assets/move.svg" alt="Movimiento" />
+                <span>Movimiento</span>
+              </div>
+              <div class="category-item">
+                <img src="assets/breathe.svg" alt="Respiración" />
+                <span>Respiración</span>
+              </div>
+              <div class="category-item">
+                <img src="assets/selfcare.svg" alt="Autocuidado" />
+                <span>Autocuidado</span>
+              </div>
+            </div>
+          </div>
+        </section>
+    
+      </main>
+</body>
+</html>

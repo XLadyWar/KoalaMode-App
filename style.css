@@ -1,0 +1,80 @@
+:root {
+    --koala-green: #4BA665;
+    --koala-red: #EE564A;
+    --koala-blue: #546FFF;
+    --koala-brown: #433C3C;
+    --koala-deepgreen: #084305;
+
+    --koala-text: #433C3C;
+    --koala-highlight: #b2c8ba;
+  
+    /* bienvenida */
+    --bg-cream: #F8F6F0;
+    --bg-peach: #EFDDCB;
+    --bg-greenish: #DFF1BE;
+  
+    /* enfoque */
+    --form-bg-1: #DFF1BE;
+    --form-bg-2: #EA8727;
+    --form-bg-3: #E96559;
+    --koala-text: #433C3C;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Ellery', serif;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  
+ 
+  .logo-top {
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: fixed;
+    top: 1rem;
+    color: var(--koala-brown);
+    font-family: 'ellery', serif;
+  }
+  
+  h1 {
+    font-family: 'Gloock', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    font-family: 'Gloock', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  
+  h3 {
+    font-family: 'Gloock', serif;
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.6;
+    font-family: 'ellery', serif;
+  }
+
+  button{
+    font-size: clamp(1.3rem, 2vw, 1.3rem);
+    line-height: 1.6;
+    font-family: 'ellery', serif;
+  }
+  
+
+  
+ 
