@@ -70,20 +70,25 @@ input {
   margin-bottom: 0.5rem;
 }
 
-.next-button{
-  margin-top:10px;
-  right: 0;
+.btn svg{
+  padding: 1vw;
+}
+
+.form-card button {
+  border-radius: 300px;
+  border: 1px solid #ffffff;
+  margin-top: 2vw;
 }
 
 .final button{
   color: #FFF;
   border: 1px solid #FFF;
   margin-top: 20px;
+  border-radius: 10px;
+  margin: 2vw;
+  padding: 1vw 3vw;
 }
 
-.next-button svg {
-  transform: rotate(-90deg);
-}
 
 .form-section span{
   font-family: 'Gloock', serif;

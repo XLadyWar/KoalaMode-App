@@ -4,6 +4,7 @@
     --koala-blue: #546FFF;
     --koala-brown: #433C3C;
     --koala-deepgreen: #084305;
+    --koala-text: #433C3C;
 
     --koala-text: #433C3C;
     --koala-highlight: #b2c8ba;
@@ -14,10 +15,14 @@
     --bg-greenish: #DFF1BE;
   
     /* enfoque */
-    --form-bg-1: #DFF1BE;
-    --form-bg-2: #EA8727;
-    --form-bg-3: #E96559;
-    --koala-text: #433C3C;
+    --enfoque-bg-1: #DFF1BE;
+    --enfoque-bg-2: #EA8727;
+    --enfoque-bg-3: #E96559;
+
+    /* descanso */
+    --descanso-bg-1: #1F5F50;
+    --descaso-bg-1: #E1F3C1;
+    
   }
 
   html {

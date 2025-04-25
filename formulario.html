@@ -26,13 +26,12 @@
         <section class="form-section" id="paso1">
           <div class="form-card">
             <h2>Ingresa tu nombre</h2>
-            <input type="text" placeholder="Tu nombre aquí" />
-            <a href="#paso2" class="next-button">
-              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
-                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+            <input id="nombreInput" type="text" placeholder="Tu nombre aquí">
+            <button id="to-step-2" class="btn">
+              <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.7071 8.70711C19.0976 8.31658 19.0976 7.68342 18.7071 7.29289L12.3431 0.928932C11.9526 0.538408 11.3195 0.538408 10.9289 0.928932C10.5384 1.31946 10.5384 1.95262 10.9289 2.34315L16.5858 8L10.9289 13.6569C10.5384 14.0474 10.5384 14.6805 10.9289 15.0711C11.3195 15.4616 11.9526 15.4616 12.3431 15.0711L18.7071 8.70711ZM0 8L0 9L18 9L18 8L18 7L0 7L0 8Z" fill="white"/>
                 </svg>
-            </a>
+              </button>
           </div>
         </section>
     
@@ -41,13 +40,13 @@
           <div class="form-card">
             <h2>Configurar Recordatorio</h2>
             <label>Minutos de enfoque</label>
-            <input type="number" min="1" placeholder="Ej. 25" />
-            <a href="#paso3" class="next-button">
-              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
-                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+            <input id="focusInput" type="number" min="1" placeholder="Minutos de enfoque (ej. 25)">
+            <button id="to-step-3" class="btn">
+              <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.7071 8.70711C19.0976 8.31658 19.0976 7.68342 18.7071 7.29289L12.3431 0.928932C11.9526 0.538408 11.3195 0.538408 10.9289 0.928932C10.5384 1.31946 10.5384 1.95262 10.9289 2.34315L16.5858 8L10.9289 13.6569C10.5384 14.0474 10.5384 14.6805 10.9289 15.0711C11.3195 15.4616 11.9526 15.4616 12.3431 15.0711L18.7071 8.70711ZM0 8L0 9L18 9L18 8L18 7L0 7L0 8Z" fill="white"/>
                 </svg>
-            </a>
+                
+            </button>
           </div>
         </section>
     
@@ -56,14 +55,13 @@
           <div class="form-card">
             <h2>Configurar Koala Mode</h2>
             <label>Minutos de descanso</label>
-            <input type="number" min="1" placeholder="Ej. 5" />
-            <a href="#paso4" class="next-button">
-              <svg width="63" height="63" viewBox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="31.5" cy="31.5" r="31" fill="#084305" fill-opacity="0.3" stroke="#fff"/>
-                <path d="M30.2929 41.7071C30.6834 42.0976 31.3166 42.0976 31.7071 41.7071L38.0711 35.3431C38.4616 34.9526 38.4616 34.3195 38.0711 33.9289C37.6805 33.5384 37.0474 33.5384 36.6569 33.9289L31 39.5858L25.3431 33.9289C24.9526 33.5384 24.3195 33.5384 23.9289 33.9289C23.5384 34.3195 23.5384 34.9526 23.9289 35.3431L30.2929 41.7071ZM30 23L30 41L32 41L32 23L30 23Z" fill="#fff"/>
+            <input id="restInput" type="number" min="1" placeholder="Minutos de descanso (ej. 5)">
+            <button id="to-step-4" class="btn">
+              <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.7071 8.70711C19.0976 8.31658 19.0976 7.68342 18.7071 7.29289L12.3431 0.928932C11.9526 0.538408 11.3195 0.538408 10.9289 0.928932C10.5384 1.31946 10.5384 1.95262 10.9289 2.34315L16.5858 8L10.9289 13.6569C10.5384 14.0474 10.5384 14.6805 10.9289 15.0711C11.3195 15.4616 11.9526 15.4616 12.3431 15.0711L18.7071 8.70711ZM0 8L0 9L18 9L18 8L18 7L0 7L0 8Z" fill="white"/>
                 </svg>
                 
-            </a>
+            </button>
           </div>
         </section>
     
@@ -119,12 +117,13 @@
                   </svg>
               </div>
             </div>
-            <a href="#" class="final">
-              <button class="final-button">Finalizar</button>
+            <a href="timer.html" class="final">
+              <button id="to-timer" class="btn">Finalizar</button>
             </a>
           </div>
         </section>
     
       </main>
+      <script src="storage.js"></script>
 </body>
 </html>
