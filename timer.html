@@ -25,7 +25,7 @@
     <section id="focus-start" class="section">
       <p>Hola, <span id="nombre-usuario"></span></p>
       <h1>Hoy es un buen día para pausar.</h1>
-      <button id="start-focus" class="btn">Comenzar</button>
+      <button id="start-focus" class="btn">Haz clic para comenzar</button>
     </section>
   
     <section id="focus" class="section" style="display:none">
@@ -49,9 +49,21 @@
           <h1 id="timer-display">00:00</h1>
           <p>Tiempo de enfoque</p>
           <div class="timer-controls">
-            <button id="play"><img src="assets/play.svg" alt=""></button>
-            <button id="pause"><img src="assets/pause.svg" alt=""></button>
-            <button id="reset"><img src="assets/reset.svg" alt=""></button>
+            <button id="play"><svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="1.5" width="51" height="51" rx="11.5" stroke="#433C3C" stroke-width="3"/>
+              <path d="M19 15L39 27L19 39V15Z" stroke="#433C3C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              </button>
+            <button id="pause"><svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="1.5" width="51" height="51" rx="11.5" stroke="#433C3C" stroke-width="3"/>
+              <path d="M33 41C31.9 41 30.9587 40.6087 30.176 39.826C29.3933 39.0433 29.0013 38.1013 29 37V17C29 15.9 29.392 14.9587 30.176 14.176C30.96 13.3933 31.9013 13.0013 33 13H37C38.1 13 39.042 13.392 39.826 14.176C40.61 14.96 41.0013 15.9013 41 17V37C41 38.1 40.6087 39.042 39.826 39.826C39.0433 40.61 38.1013 41.0013 37 41H33ZM17 41C15.9 41 14.9587 40.6087 14.176 39.826C13.3933 39.0433 13.0013 38.1013 13 37V17C13 15.9 13.392 14.9587 14.176 14.176C14.96 13.3933 15.9013 13.0013 17 13H21C22.1 13 23.042 13.392 23.826 14.176C24.61 14.96 25.0013 15.9013 25 17V37C25 38.1 24.6087 39.042 23.826 39.826C23.0433 40.61 22.1013 41.0013 21 41H17ZM33 37H37V17H33V37ZM17 37H21V17H17V37Z" fill="#433C3C"/>
+              </svg>
+              </button>
+            <button id="reset"><svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="1.5" width="51" height="51" rx="11.5" stroke="#433C3C" stroke-width="3"/>
+              <path d="M27 43C22.5333 43 18.75 41.45 15.65 38.35C12.55 35.25 11 31.4667 11 27C11 22.5333 12.55 18.75 15.65 15.65C18.75 12.55 22.5333 11 27 11C29.3 11 31.5 11.4747 33.6 12.424C35.7 13.3733 37.5 14.732 39 16.5V13C39 12.4333 39.192 11.9587 39.576 11.576C39.96 11.1933 40.4347 11.0013 41 11C41.5653 10.9987 42.0407 11.1907 42.426 11.576C42.8113 11.9613 43.0027 12.436 43 13V23C43 23.5667 42.808 24.042 42.424 24.426C42.04 24.81 41.5653 25.0013 41 25H31C30.4333 25 29.9587 24.808 29.576 24.424C29.1933 24.04 29.0013 23.5653 29 23C28.9987 22.4347 29.1907 21.96 29.576 21.576C29.9613 21.192 30.436 21 31 21H37.4C36.3333 19.1333 34.8753 17.6667 33.026 16.6C31.1767 15.5333 29.168 15 27 15C23.6667 15 20.8333 16.1667 18.5 18.5C16.1667 20.8333 15 23.6667 15 27C15 30.3333 16.1667 33.1667 18.5 35.5C20.8333 37.8333 23.6667 39 27 39C29.2667 39 31.342 38.4253 33.226 37.276C35.11 36.1267 36.568 34.5847 37.6 32.65C37.8667 32.1833 38.242 31.8587 38.726 31.676C39.21 31.4933 39.7013 31.4847 40.2 31.65C40.7333 31.8167 41.1167 32.1667 41.35 32.7C41.5833 33.2333 41.5667 33.7333 41.3 34.2C39.9333 36.8667 37.9833 39 35.45 40.6C32.9167 42.2 30.1 43 27 43Z" fill="#433C3C"/>
+              </svg>
+              </button>
           </div>
         </div>
       </div>
