@@ -1,4 +1,4 @@
-// form-storage.js
+
 document.addEventListener("DOMContentLoaded", () => {
     // Navegación por pasos
     const steps = ["paso1","paso2","paso3","paso4"];
