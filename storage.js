@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const cats = Array.from(document.querySelectorAll(".category-item.selected span"))
         .map(el => el.textContent);
       localStorage.setItem("categories", JSON.stringify(cats));
-      // Luego el enlace navegará a timer.html
+      
     });
   
     // Toggle selección de categorías
