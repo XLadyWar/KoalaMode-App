@@ -1,67 +1,75 @@
-// timer.js
 document.addEventListener("DOMContentLoaded", () => {
-  // Recuperar
-  const userName = localStorage.getItem("userName") || "Koala";
-  const focusMins = parseInt(localStorage.getItem("focusMins"),10) || 25;
-  const restMins  = parseInt(localStorage.getItem("restMins"),10)  || 5;
+  // 1. Recuperar datos
+  const userName   = localStorage.getItem("userName")   || "Koala";
+  const focusMins  = parseInt(localStorage.getItem("focusMins"),10) || 25;
 
-  // Elementos
-  const nameSpan   = document.getElementById("nombre-usuario");
-  const startBtn   = document.getElementById("start-focus");
-  const focusSect  = document.getElementById("focus");
-  const introSect  = document.getElementById("focus-start");
-  const timerDisp  = document.getElementById("timer-display");
-  const ring       = document.getElementById("progress-ring");
-  const playBtn    = document.getElementById("play");
-  const pauseBtn   = document.getElementById("pause");
-  const resetBtn   = document.getElementById("reset");
-  const popup      = document.getElementById("popup-logro");
-  const nameSample = document.getElementById("name-sample");
-  const gotoPrompt = document.getElementById("goto-prompt");
-  const promptSect = document.getElementById("prompt");
-  const anotherIdea= document.getElementById("another-idea");
-  const promptText = document.getElementById("prompt-text");
+  // 2. Elementos del DOM
+  const nameSpan    = document.getElementById("nombre-usuario");
+  const startBtn    = document.getElementById("start-focus");
+  const introSect   = document.getElementById("focus-start");
+  const focusSect   = document.getElementById("focus");
+  const timerDisp   = document.getElementById("timer-display");
+  const maskRect    = document.getElementById("mask-rect");
+  const playBtn     = document.getElementById("play");
+  const pauseBtn    = document.getElementById("pause");
+  const resetBtn    = document.getElementById("reset");
+  const popup       = document.getElementById("popup-logro");
+  const nameSample  = document.getElementById("name-sample");
+  const gotoPrompt  = document.getElementById("goto-prompt");
+  const promptSect  = document.getElementById("prompt");
+  const anotherIdea = document.getElementById("another-idea");
+  const promptText  = document.getElementById("prompt-text");
 
-  // Mostrar nombre
+  // 3. Inicializar pantalla
   nameSpan.textContent = userName;
-
-  // Duración y estado
   const duration = focusMins * 60;
   let remaining = duration;
 
-  // GSAP animación anillo
-  const anim = gsap.timeline({paused:true})
-    .to(ring, { strokeDashoffset: 0, duration: duration, ease: "none" });
 
-  // Formateo
+  
+  gsap.set(maskRect, { attr: { y: 300 } });
+  // 4. GSAP: animar la máscara de y=0 → y=300 (llenado de abajo a arriba)
+  const fillAnim = gsap.timeline({ paused: true })
+  .to(maskRect, {
+    attr: { y: 0 },           
+    duration: duration,
+    ease: "none"
+  });
+
+  // 5. Formateo mm:ss
   function fmt(sec){
     const m = String(Math.floor(sec/60)).padStart(2,"0");
     const s = String(sec%60).padStart(2,"0");
     return `${m}:${s}`;
   }
-
-  // Actualiza pantalla
   function update(){ timerDisp.textContent = fmt(remaining); }
 
-  // Reloj
+  // 6. Control del reloj
   let iv;
   function startClock(){
     clearInterval(iv);
     iv = setInterval(() => {
-      if(remaining>0){ remaining--; update(); }
-      else{ clearInterval(iv); showPopup(); }
-    },1000);
-    anim.play();
+      if (remaining > 0) {
+        remaining--; update();
+      } else {
+        clearInterval(iv);
+        showPopup();
+      }
+    }, 1000);
+    fillAnim.play(0);
   }
-  function pauseClock(){ clearInterval(iv); anim.pause(); }
+  function pauseClock(){
+    clearInterval(iv);
+    fillAnim.pause();
+  }
   function resetClock(){
     clearInterval(iv);
     remaining = duration; update();
-    anim.progress(0).pause();
-    gsap.set(ring, { strokeDashoffset: 880 });
+    fillAnim.pause(0);
+    gsap.set(maskRect, { attr: { y: 300 } });
   }
 
-  // Botones
+  // 7. Conectar botones
   startBtn.onclick = () => {
     introSect.style.display = "none";
     focusSect.style.display = "flex";
@@ -71,23 +79,20 @@ document.addEventListener("DOMContentLoaded", () => {
   pauseBtn.onclick = pauseClock;
   resetBtn.onclick = resetClock;
 
-  // Popup
+  // 8. Popup y prompt
   function showPopup(){
     nameSample.textContent = userName;
     popup.style.display = "flex";
   }
   gotoPrompt.onclick = () => {
-    popup.style.display = "none";
+    popup.style.display   = "none";
     focusSect.style.display = "none";
     promptSect.style.display = "flex";
   };
-
-  // Otra idea
   anotherIdea.onclick = () => {
     promptText.textContent = "Haz una pausa de 5 min. mirando por la ventana 🌿";
   };
 
-  // Init
+  // 9. Init
   update();
-  gsap.set(ring, { strokeDashoffset: 880 });
 });

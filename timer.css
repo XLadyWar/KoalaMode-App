@@ -67,38 +67,37 @@ background: rgba(238, 86, 74, 0.30);
   .koala-timer-app .section { 
     position:absolute; 
     top:0; 
-    left:0; }
-  
-  .focus-circle-wrapper {
-    position:relative; 
-    width:300px; 
-    height:300px;
+    left:0; 
   }
+/* Temporizador circular */
+.focus-circle-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
 
-  .circle-border {
-    position:absolute; 
-    width:100%; 
-    height:100%; }
+.circle-border {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
-  .ring-bg { stroke:#eee; 
-    stroke-width:4; 
-    fill:none; }
+.ring-bg {
+  stroke: #eee;
+  stroke-width: 4;
+  fill: none;
+}
 
-  .ring-fg {
-    stroke:url(#gradient); 
-    stroke-width:6; 
-    fill:none;
-    stroke-dasharray:880; 
-    stroke-dashoffset:880;
-  }
 
-  .circle-content {
-    position:absolute; 
-    display:flex; 
-    flex-direction:column;
-    justify-content:center; 
-    align-items:center;
-  }
+
+.circle-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
   .koala-icon { 
     width:40px; 
