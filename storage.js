@@ -33,9 +33,18 @@ document.addEventListener("DOMContentLoaded", () => {
       
     });
   
-    // Toggle selección de categorías
-    document.querySelectorAll(".category-item").forEach(item => {
-      item.onclick = () => item.classList.toggle("selected");
-    });
+   // Toggle selección de categorías (máx. 3)
+document.querySelectorAll(".category-item").forEach(item => {
+  item.onclick = () => {
+    const sel = document.querySelectorAll(".category-item.selected");
+    // si no está seleccionado y ya hay 3: bloquea
+    if (!item.classList.contains("selected") && sel.length >= 3) {
+      alert("Solo puedes escoger hasta 3 categorías.");
+      return;
+    }
+    item.classList.toggle("selected");
+  };
+});
+
   });
   

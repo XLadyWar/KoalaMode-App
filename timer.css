@@ -1,6 +1,8 @@
 body{
     background: linear-gradient(180deg, var(--enfoque-bg-1), var(--enfoque-bg-2), var(--enfoque-bg-3));
 }
+
+
  
 .section button #focus-start{
 border: 1px solid #433C3C;

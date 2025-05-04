@@ -62,12 +62,35 @@ input {
   justify-content: space-around;
   width: 80%;
   height: 15vh;
+  transition: all 0.3s ease;
+}
+
+.category-item.selected {
+  background-color: white;
+  border: 2px solid var(--koala-highlight);
+  transform: scale(1.05);
+
+}
+
+.category-item.selected span{
+  color: var(--koala-green);
+}
+
+.category-item svg{
+  fill: white;
+}
+.category-item.selected svg {
+  fill: var(--koala-green);
 }
 
 .category-item img {
   width: 40px;
   height: 40px;
   margin-bottom: 0.5rem;
+}
+.category-item select{
+  background-color: var(--koala-deepgreen);
+  color: var(--koala-highlight);
 }
 
 .btn svg{

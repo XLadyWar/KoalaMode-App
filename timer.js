@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Recuperar datos
   const userName   = localStorage.getItem("userName")   || "Koala";
   const focusMins  = parseInt(localStorage.getItem("focusMins"),10) || 25;
+  const categories = JSON.parse(localStorage.getItem("categories") || "[]");
 
   // 2. Elementos del DOM
   const nameSpan    = document.getElementById("nombre-usuario");
@@ -13,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const playBtn     = document.getElementById("play");
   const pauseBtn    = document.getElementById("pause");
   const resetBtn    = document.getElementById("reset");
-  const popup       = document.getElementById("popup-logro");
+  const popupLogro  = document.getElementById("popup-logro");
+  const popupCats   = document.getElementById("popup-cats");
+  const catsList    = document.getElementById("cats-list");
   const nameSample  = document.getElementById("name-sample");
   const gotoPrompt  = document.getElementById("goto-prompt");
   const promptSect  = document.getElementById("prompt");
@@ -82,16 +85,131 @@ document.addEventListener("DOMContentLoaded", () => {
   // 8. Popup y prompt
   function showPopup(){
     nameSample.textContent = userName;
-    popup.style.display = "flex";
+    popupLogro.style.display = "flex";
+    gsap.from(popupLogro, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    });
   }
+
+  function showCategoryPopup() {
+    // Clear previous categories
+    catsList.innerHTML = '';
+    
+    // Add categories from localStorage
+    categories.forEach(category => {
+      const div = document.createElement('div');
+      div.className = 'category-item';
+      div.innerHTML = `
+        <span>${category}</span>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0C8.954 0 0 8.954 0 20C0 31.046 8.954 40 20 40C31.046 40 40 31.046 40 20C40 8.954 31.046 0 20 0Z" fill="white"/>
+        </svg>
+      `;
+      
+      // Add click handler
+      div.onclick = () => {
+        // Remove selected class from all items
+        document.querySelectorAll('.category-item').forEach(item => {
+          item.classList.remove('selected');
+        });
+        // Add selected class to clicked item
+        div.classList.add('selected');
+        
+        // Get random activity from selected category
+        const activities = activitiesByCat[category];
+        const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+        promptText.textContent = randomActivity;
+      };
+      
+      catsList.appendChild(div);
+    });
+
+    popupCats.style.display = "flex";
+    gsap.from(popupCats, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    });
+  }
+
   gotoPrompt.onclick = () => {
-    popup.style.display   = "none";
-    focusSect.style.display = "none";
-    promptSect.style.display = "flex";
+    gsap.to(popupLogro, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        popupLogro.style.display = "none";
+        showCategoryPopup();
+      }
+    });
   };
-  anotherIdea.onclick = () => {
-    promptText.textContent = "Haz una pausa de 5 min. mirando por la ventana 🌿";
-  };
+
+  // Add event listener for category selection
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.category-item')) {
+      const selectedCategory = e.target.closest('.category-item');
+      if (selectedCategory.classList.contains('selected')) {
+        gsap.to(popupCats, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => {
+            popupCats.style.display = "none";
+            focusSect.style.display = "none";
+            promptSect.style.display = "flex";
+            gsap.from(promptSect, {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          }
+        });
+      }
+    }
+  });
+
+  // 0. Mapa de actividades por categoría
+const activitiesByCat = {
+  "Creatividad": [
+    "Dibuja tu día como un cómic",
+    "Escribe un mini-poema sobre tu color favorito",
+    "Crea un logo rápido para un café imaginario"
+  ],
+  "Movimiento Suave": [
+    "Haz 5 estiramientos de cuello",
+    "Camina en tu sitio 1 minuto con los ojos cerrados",
+    "Gira suavemente los hombros 10 veces"
+  ],
+  "Escritura": [
+    "Redacta un agradecimiento a alguien cercano",
+    "Escribe una micro-historia de 50 palabras",
+    "Anota tres ideas para mejorar tu espacio"
+  ],
+  "Autocuidado": [
+    "Toma 3 respiraciones profundas",
+    "Aplica una mascarilla rápida en cara o manos",
+    "Escribe 3 cosas buenas que has hecho hoy"
+  ],
+  "Respira": [
+    "Haz 4-7-8: inhala 4s, retén 7s, exhala 8s (x3)",
+    "Coloca una mano en el pecho y otra en el vientre, siente tu respiración",
+    "Cierra los ojos y respira contando mentalmente 10 veces"
+  ],
+  "Sorprendeme": [
+    "Mira por la ventana 2 minutos sin pensar",
+    "Escucha tu canción favorita en silencio",
+    "Busca un objeto a tu alrededor y obsérvalo con detalle"
+  ]
+};
+
+
 
   // 9. Init
   update();
