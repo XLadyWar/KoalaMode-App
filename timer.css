@@ -38,6 +38,7 @@ background: rgba(238, 86, 74, 0.30);
     padding:2rem; border-radius:20px;
     box-shadow:0 8px 20px rgba(0,0,0,0.1);
     text-align:center;
+    backdrop-filter: blur(25px);
   }
 
   input {
@@ -58,6 +59,9 @@ background: rgba(238, 86, 74, 0.30);
     border:2px solid var(--koala-dark);
     border-radius:12px; 
     text-align:center; cursor:pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .category-item.selected {
@@ -130,10 +134,31 @@ background: rgba(238, 86, 74, 0.30);
   }
 
   .popup-card {
-    background:white; 
+    background:rgba(45, 45, 45, 0.26); 
     padding:2rem; 
     border-radius:20px;
     text-align:center; 
-    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    color: white;
+    backdrop-filter: blur(25px);
+  }
+
+  .popup-card p h2{
+    color: white;
+  }
+
+  .popup-card button{
+    color: white;
+  }
+
+  .logro{
+    background-color: var(--koala-green);
+    border-radius: 10px;
+    padding: 2vw 2vw;
+    color: white;
+    margin-bottom: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
   }
   
