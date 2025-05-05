@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Recuperar datos
+  // Recuperar datos
   const userName   = localStorage.getItem("userName")   || "Koala";
   const focusMins  = parseInt(localStorage.getItem("focusMins"),10) || 25;
   const restMins   = parseInt(localStorage.getItem("restMins"),10) || 5;
   const categories = JSON.parse(localStorage.getItem("categories") || "[]");
 
-  // 2. Elementos del DOM
+  // Elementos del DOM
   const nameSpan    = document.getElementById("nombre-usuario");
   const startBtn    = document.getElementById("start-focus");
   const introSect   = document.getElementById("focus-start");
@@ -26,14 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const startActivityBtn = document.getElementById("start-activity");
   const body = document.body;
 
-  // 3. Inicializar pantalla
+  // Inicializar pantalla
   nameSpan.textContent = userName;
   let duration = focusMins * 60;
   let remaining = duration;
   let isRestTimer = false;
 
   gsap.set(maskRect, { attr: { y: 300 } });
-  // 4. GSAP: animar la máscara de y=0 → y=300 (llenado de abajo a arriba)
   const fillAnim = gsap.timeline({ paused: true })
   .to(maskRect, {
     attr: { y: 0 },           
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "none"
   });
 
-  // 5. Formateo mm:ss
+  //  Formateo mm:ss
   function fmt(sec){
     const m = String(Math.floor(sec/60)).padStart(2,"0");
     const s = String(sec%60).padStart(2,"0");
@@ -49,20 +48,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function update(){ timerDisp.textContent = fmt(remaining); }
 
-  // Function to update visual mode
+  // visualizacion de modo
   function updateVisualMode(isRest, isPaused = false) {
     const modeText = document.querySelector("#focus p");
     const svgIcon = document.querySelector("#focus .circle-content svg");
 
     if (isPaused) {
-      // Pause mode colors with GSAP animation
+      // modo pausa
       gsap.to(body, {
         background: "linear-gradient(180deg, var(--pausa-bg-1) 0%, var(--pausa-bg-2) 50%, var(--pausa-bg-3) 100%)",
         duration: 0.5,
         ease: "power2.inOut"
       });
 
-      // Update circle gradient with animation
+      // modo pausa gradiente circulo
       const gradient = document.querySelector("#gradient");
       gsap.to(gradient, {
         innerHTML: `
@@ -86,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.inOut"
       });
 
-      // Update mode text with fade animation
+      // animacion de fade
       gsap.to(modeText, {
         opacity: 0,
         duration: 0.25,
@@ -101,14 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     } else if (isRest) {
-      // Koala mode colors with GSAP animation
+      // Koala mode colores
       gsap.to(body, {
         background: "linear-gradient(180deg, #1F5F50 0%, #E1F3C1 50%, #E1F3C1 100%)",
         duration: 0.5,
         ease: "power2.inOut"
       });
 
-      // Update circle gradient with animation
+      // animacion circulo koala mode
       const gradient = document.querySelector("#gradient");
       gsap.to(gradient, {
         innerHTML: `
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.inOut"
       });
 
-      // Update mode text with fade animation
+      // animacion fade texto
       gsap.to(modeText, {
         opacity: 0,
         duration: 0.25,
@@ -147,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // Update SVG icon for koala mode
+      //SVG icono koala mode
       gsap.to(svgIcon, {
         opacity: 0,
         duration: 0.25,
@@ -166,14 +165,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     } else {
-      // Focus mode colors with GSAP animation
+      // Focus mode colores
       gsap.to(body, {
         background: "linear-gradient(180deg, var(--enfoque-bg-1), var(--enfoque-bg-2), var(--enfoque-bg-3))",
         duration: 0.5,
         ease: "power2.inOut"
       });
 
-      // Update circle gradient with animation
+      // animacion de circulo,  focus mode
       const gradient = document.querySelector("#gradient");
       gsap.to(gradient, {
         innerHTML: `
@@ -197,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.inOut"
       });
 
-      // Update mode text with fade animation
+      // texto fade 
       gsap.to(modeText, {
         opacity: 0,
         duration: 0.25,
@@ -212,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // Update SVG icon for focus mode
+      // Svg focus
       gsap.to(svgIcon, {
         opacity: 0,
         duration: 0.25,
@@ -233,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 6. Control del reloj
+  //  Control del reloj
   let iv;
   function startClock(){
     clearInterval(iv);
@@ -243,35 +242,35 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         clearInterval(iv);
         if (isRestTimer) {
-          // Rest timer finished, go back to focus
+          // reinicia timer
           isRestTimer = false;
           duration = focusMins * 60;
           remaining = duration;
           update();
           updateVisualMode(false);
           
-          // Show focus timer first
+          // mostra timer focus
           focusSect.style.display = "flex";
           promptSect.style.display = "none";
           popupCats.style.display = "none";
           popupLogro.style.display = "none";
           
-          // Reset mask position and animation
+          // resetear mascara 
           gsap.set(maskRect, { attr: { y: 300 } });
           fillAnim.pause(0);
           
-          // Show popup after a small delay
+          // mostrar pop up 
           setTimeout(() => {
             showPopup();
           }, 50);
         } else {
-          // Focus timer finished, show popup
+          // focus mode temrinado mostrar pop up 
           showPopup();
         }
       }
     }, 1000);
     
-    // Reset and play the fill animation
+    // resetar y mostrar la animacion de fill 
     fillAnim.pause(0);
     gsap.set(maskRect, { attr: { y: 300 } });
     fillAnim.play();
@@ -290,24 +289,24 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(maskRect, { attr: { y: 300 } });
   }
 
-  // 7. Conectar botones
+  // Conectar botones
   startBtn.onclick = () => {
     introSect.style.display = "none";
     focusSect.style.display = "flex";
     update();
   };
 
-  // Update play button click handler
+  // update
   playBtn.onclick = () => {
     if (remaining === duration) {
-      // If it's a fresh start, reset the mask
+    
       gsap.set(maskRect, { attr: { y: 300 } });
     }
     startClock();
     updateVisualMode(isRestTimer, false);
   };
 
-  // Update pause button click handler
+  // Update pause
   pauseBtn.onclick = () => {
     pauseClock();
     updateVisualMode(isRestTimer, true);
@@ -318,7 +317,13 @@ document.addEventListener("DOMContentLoaded", () => {
     updateVisualMode(isRestTimer, false);
   };
 
-  // 8. Popup y prompt
+
+
+
+
+  // Popup y prompt
+
+  
   function showPopup(){
     // Seleccionar un mensaje aleatorio
     const randomMessage = achievementMessages[Math.floor(Math.random() * achievementMessages.length)];
@@ -341,18 +346,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showCategoryPopup() {
-    // Clear previous categories
     catsList.innerHTML = '';
     
-    // Add categories from localStorage
+    // Storage
     categories.forEach(category => {
       const div = document.createElement('div');
       div.className = 'category-item';
+      
+      // svg
+      let svgPath = '';
+      switch(category) {
+        case 'Creatividad':
+          svgPath = `<svg width="83" height="83" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M41.4998 76.0832C36.9583 76.0832 32.4612 75.1886 28.2654 73.4507C24.0695 71.7127 20.2571 69.1653 17.0457 65.9539C10.5601 59.4683 6.9165 50.6719 6.9165 41.4998C6.9165 32.3278 10.5601 23.5314 17.0457 17.0457C23.5314 10.5601 32.3278 6.9165 41.4998 6.9165C60.5207 6.9165 76.0832 20.7498 76.0832 38.0415C76.0832 43.5447 73.897 48.8226 70.0056 52.714C66.1143 56.6053 60.8364 58.7915 55.3332 58.7915H49.1082C48.0707 58.7915 47.379 59.4832 47.379 60.5207C47.379 60.8665 47.7248 61.2123 47.7248 61.5582C49.1082 63.2873 49.7998 65.3623 49.7998 67.4373C50.1457 72.279 46.3415 76.0832 41.4998 76.0832Z"/>
+          </svg>`;
+          break;
+        case 'Movimiento Suave':
+          svgPath = `<svg width="68" height="75" viewBox="0 0 68 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M33.7197 20.75C40.5646 20.7501 46.7246 23.7001 50.9902 28.3867L51.3975 28.8457L51.4014 28.8506L51.6846 29.1973C52.8649 30.7196 53.4443 32.4734 53.7871 34.0225L53.9297 34.7207L53.9307 34.7246L54.0439 35.2969C54.6451 38.1909 55.7699 41.4885 57.5332 44.0596C59.3813 46.7543 61.7387 48.417 64.8447 48.417C66.277 48.4173 67.4385 49.5784 67.4385 51.0107C67.4383 52.4429 66.2769 53.6042 64.8447 53.6045C59.4917 53.6045 55.721 50.5891 53.2549 46.9932C50.822 43.4456 49.4754 39.1113 48.832 35.6826C48.7328 35.1573 48.6173 34.6826 48.4863 34.252C46.7134 37.8485 45.4556 40.9157 45.7178 44.4697L45.7568 44.9023L45.7949 45.209C46.2477 48.3479 48.4136 50.7457 51.8252 52.9824C53.5699 54.1263 55.5234 55.1512 57.5547 56.1768C59.5381 57.1781 61.6511 58.2072 63.499 59.2822H63.501L63.8193 59.4775C67.0344 61.5446 67.9467 65.2387 67.1758 68.2861C66.3672 71.4822 63.6141 74.3544 59.4219 74.3545C52.4297 74.3545 45.8479 73.8162 39.1426 70.7275C39.099 70.7075 39.0561 70.6856 39.0137 70.6631L38.8896 70.5928L33.4072 67.29L28.0615 70.5801C27.9789 70.631 27.8935 70.6775 27.8057 70.7188C21.2183 73.8154 14.7573 74.3545 7.90625 74.3545C3.73424 74.3545 1.03916 71.4414 0.253906 68.2744C-0.518346 65.1594 0.438722 61.3292 3.8623 59.2939H3.86426L4.55469 58.8926C6.19242 57.9608 7.99182 57.0631 9.69043 56.1875C11.6796 55.1622 13.5894 54.1379 15.2949 52.9961C18.728 50.6977 20.885 48.2195 21.2344 44.9102L21.2734 44.4756C21.5155 41.0851 20.4081 38.1377 18.8076 34.7676C18.7354 35.0543 18.6674 35.3585 18.6064 35.6816L18.6074 35.6826C17.9658 39.1111 16.6186 43.4462 14.1846 46.9941C11.7179 50.5896 7.94653 53.6045 2.59375 53.6045C1.16159 53.6042 0.000173109 52.4429 0 51.0107C0 49.5784 1.16149 48.4173 2.59375 48.417C5.69996 48.417 8.05777 46.7539 9.90625 44.0596C11.7873 41.3177 12.9424 37.7498 13.5078 34.7285L13.5088 34.7256L13.6514 34.0254C14.0206 32.3547 14.6641 30.449 16.0371 28.8506L16.0391 28.8477L16.4561 28.377C18.5703 26.0521 21.1341 24.1765 23.9951 22.8662C27.0464 21.4688 30.3637 20.7473 33.7197 20.75Z"/>
+          </svg>`;
+          break;
+        case 'Escritura':
+          svgPath = `<svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 22.8333C13 19.1645 14.4574 15.6459 17.0517 13.0517C19.6459 10.4574 23.1645 9 26.8333 9H75.25V78.1667H26.8333C23.1645 78.1667 19.6459 76.7092 17.0517 74.115C14.4574 71.5207 13 68.0022 13 64.3333V22.8333ZM19.9167 52.3502C22.0199 51.1372 24.4054 50.4991 26.8333 50.5H68.3333V15.9167H26.8333C24.9989 15.9167 23.2396 16.6454 21.9425 17.9425C20.6454 19.2396 19.9167 20.9989 19.9167 22.8333V52.3502ZM68.3333 57.4167H26.8333C24.9989 57.4167 23.2396 58.1454 21.9425 59.4425C20.6454 60.7396 19.9167 62.4989 19.9167 64.3333C19.9167 66.1678 20.6454 67.927 21.9425 69.2242C23.2396 70.5213 24.9989 71.25 26.8333 71.25H68.3333V57.4167ZM37.2083 22.8333H61.4167V29.75H37.2083V22.8333Z"/>
+          </svg>`;
+          break;
+        case 'Autocuidado':
+          svgPath = `<svg width="83" height="83" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.9165 72.625V65.7083H69.1665V72.625H6.9165ZM69.1665 27.6667V17.2917H62.2498V27.6667H69.1665ZM69.1665 10.375C71.0009 10.375 72.7602 11.1037 74.0573 12.4008C75.3544 13.698 76.0832 15.4573 76.0832 17.2917V27.6667C76.0832 29.5011 75.3544 31.2604 74.0573 32.5575C72.7602 33.8546 71.0009 34.5833 69.1665 34.5833H62.2498V44.9583C62.2498 48.6272 60.7924 52.1457 58.1981 54.74C55.6039 57.3342 52.0853 58.7917 48.4165 58.7917H27.6665C23.9977 58.7917 20.4791 57.3342 17.8849 54.74C15.2906 52.1457 13.8332 48.6272 13.8332 44.9583V10.375H69.1665ZM55.3332 17.2917H20.7498V44.9583C20.7498 46.7927 21.4786 48.552 22.7757 49.8492C24.0728 51.1463 25.8321 51.875 27.6665 51.875H48.4165C50.2509 51.875 52.0102 51.1463 53.3073 49.8492C54.6044 48.552 55.3332 46.7927 55.3332 44.9583V17.2917Z"/>
+          </svg>`;
+          break;
+        case 'Respira':
+          svgPath = `<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M60.875 9C63.6266 9 66.2655 10.0931 68.2112 12.0388C70.1569 13.9845 71.25 16.6234 71.25 19.375V60.875C71.25 63.6266 70.1569 66.2655 68.2112 68.2112C66.2655 70.1569 63.6266 71.25 60.875 71.25H19.375C16.6234 71.25 13.9845 70.1569 12.0388 68.2112C10.0931 66.2655 9 63.6266 9 60.875V19.375C9 16.6234 10.0931 13.9845 12.0388 12.0388C13.9845 10.0931 16.6234 9 19.375 9H60.875Z"/>
+          </svg>`;
+          break;
+        case 'Sorprendeme':
+          svgPath = `<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M60.875 9C63.6266 9 66.2655 10.0931 68.2112 12.0388C70.1569 13.9845 71.25 16.6234 71.25 19.375V60.875C71.25 63.6266 70.1569 66.2655 68.2112 68.2112C66.2655 70.1569 63.6266 71.25 60.875 71.25H19.375C16.6234 71.25 13.9845 70.1569 12.0388 68.2112C10.0931 66.2655 9 63.6266 9 60.875V19.375C9 16.6234 10.0931 13.9845 12.0388 12.0388C13.9845 10.0931 16.6234 9 19.375 9H60.875ZM60.875 15.9167H19.375C18.4578 15.9167 17.5782 16.281 16.9296 16.9296C16.281 17.5782 15.9167 18.4578 15.9167 19.375V60.875C15.9167 61.7922 16.281 62.6718 16.9296 63.3204C17.5782 63.969 18.4578 64.3333 19.375 64.3333H60.875C61.7922 64.3333 62.6718 63.969 63.3204 63.3204C63.969 62.6718 64.3333 61.7922 64.3333 60.875V19.375C64.3333 18.4578 63.969 17.5782 63.3204 16.9296C62.6718 16.281 61.7922 15.9167 60.875 15.9167Z"/>
+          </svg>`;
+          break;
+      }
+      
       div.innerHTML = `
         <span>${category}</span>
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 0C8.954 0 0 8.954 0 20C0 31.046 8.954 40 20 40C31.046 40 40 31.046 40 20C40 8.954 31.046 0 20 0Z" fill="white"/>
-        </svg>
+        ${svgPath}
       `;
       
       // Add click handler
@@ -394,6 +432,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   };
+
+ // ------------------ eventos-----------
 
   // Add event listener for category selection
   document.addEventListener('click', (e) => {
@@ -449,7 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Add event listener for start activity button
+  // evento empezar actividad
   startActivityBtn.onclick = () => {
     // Start rest timer
     isRestTimer = true;
@@ -458,10 +498,10 @@ document.addEventListener("DOMContentLoaded", () => {
     update();
     updateVisualMode(true);
     
-    // Reset mask position for new timer
+    // resear timer mascara
     gsap.set(maskRect, { attr: { y: 300 } });
     
-    // Hide prompt and show timer
+    // esconder y mostrar timers
     gsap.to(promptSect, {
       opacity: 0,
       y: -20,
@@ -475,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // 0. Mapa de actividades por categoría
+  // Mapa de actividades por categoría
   const activitiesByCat = {
     "Creatividad": [
       "Dibuja tu día como un cómic",
@@ -523,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "¡Brillante! Has demostrado gran capacidad de concentración."
   ];
 
-  // 9. Init
+  // Init
   update();
 
   // Initialize with focus mode colors

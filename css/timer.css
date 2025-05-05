@@ -48,26 +48,54 @@ background: rgba(238, 86, 74, 0.30);
   }
   
   .category-grid {
-    display:grid; 
-    grid-template-columns:repeat(3,1fr);
-    gap:1rem; 
-    margin-top:1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
   }
 
   .category-item {
-    padding:1rem; 
-    border:2px solid var(--koala-dark);
-    border-radius:12px; 
-    text-align:center; cursor:pointer;
+    background-color: rgba(45, 45, 45, 0.26);
+    border-radius: 20px;
+    border: 1px solid #FFF;
+    padding: 1rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    height: 15vh;
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
 
   .category-item.selected {
-    background:white; 
-    border-color:var(--koala-green);
-    color:var(--koala-green);
+    background-color: white;
+    border: 2px solid var(--koala-highlight);
+    transform: scale(1.05);
+  }
+
+  .category-item.selected span {
+    color: var(--koala-green);
+  }
+
+  .category-item svg {
+    fill: white;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-item.selected svg {
+    fill: var(--koala-green);
+  }
+
+  .category-item span {
+    font-family: 'Gloock', serif;
+    font-size: clamp(1.3rem, 2vw, 1.3rem);
+    color: #FFF;
   }
   
   .koala-timer-app .section { 
