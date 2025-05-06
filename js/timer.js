@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       gsap.to(timerDisp, {
-        color: "#1F5F50",
+        color: "#fff",
         duration: 0.5,
         ease: "power2.inOut"
       });
@@ -138,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.inOut",
         onComplete: () => {
           modeText.textContent = "Tiempo de descanso";
+          modeText.style.color = "#fff";
           gsap.to(modeText, {
             opacity: 1,
             duration: 0.25,
@@ -259,21 +260,24 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.set(maskRect, { attr: { y: 300 } });
           fillAnim.pause(0);
           
-          // mostrar pop up 
-          setTimeout(() => {
-            showPopup();
-          }, 50);
+          // No iniciamos automáticamente, esperamos al usuario
         } else {
-          // focus mode temrinado mostrar pop up 
+          // focus mode terminado - mostrar pop up 
+          popupLogro.style.display = "flex";
+          nameSample.textContent = userName;
           showPopup();
         }
       }
     }, 1000);
     
-    // resetar y mostrar la animacion de fill 
-    fillAnim.pause(0);
-    gsap.set(maskRect, { attr: { y: 300 } });
-    fillAnim.play();
+    // Solo resetear y mostrar la animación de fill si es un nuevo timer
+    if (remaining === duration) {
+      fillAnim.pause(0);
+      gsap.set(maskRect, { attr: { y: 300 } });
+      fillAnim.play();
+    } else {
+      fillAnim.play();
+    }
   }
 
   function pauseClock(){
@@ -287,6 +291,13 @@ document.addEventListener("DOMContentLoaded", () => {
     update();
     fillAnim.pause(0);
     gsap.set(maskRect, { attr: { y: 300 } });
+    
+    // Add scale animation to timer display
+    gsap.from(timerDisp, {
+      
+      duration: 0.3,
+      ease: "back.out(1.7)"
+    });
   }
 
   // Conectar botones
@@ -299,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // update
   playBtn.onclick = () => {
     if (remaining === duration) {
-    
       gsap.set(maskRect, { attr: { y: 300 } });
     }
     startClock();
@@ -325,9 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
   function showPopup(){
-    // Seleccionar un mensaje aleatorio
     const randomMessage = achievementMessages[Math.floor(Math.random() * achievementMessages.length)];
-    // Actualizar solo el texto del logro manteniendo el SVG
     const logroDiv = document.querySelector('.logro');
     logroDiv.innerHTML = `
      <svg width="149" height="135" viewBox="0 0 149 135" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -337,12 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <span>${randomMessage}</span>
     `;
     popupLogro.style.display = "flex";
-    gsap.from(popupLogro, {
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.5,
-      ease: "back.out(1.7)"
-    });
   }
 
   function showCategoryPopup() {
@@ -413,8 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     popupCats.style.display = "flex";
     gsap.from(popupCats, {
-      opacity: 0,
-      scale: 0.8,
+     
       duration: 0.5,
       ease: "back.out(1.7)"
     });
@@ -422,8 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   gotoPrompt.onclick = () => {
     gsap.to(popupLogro, {
-      opacity: 0,
-      scale: 0.8,
+     
       duration: 0.3,
       ease: "power2.in",
       onComplete: () => {
@@ -433,16 +433,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
- // ------------------ eventos-----------
-
   // Add event listener for category selection
   document.addEventListener('click', (e) => {
     if (e.target.closest('.category-item')) {
       const selectedCategory = e.target.closest('.category-item');
       if (selectedCategory.classList.contains('selected')) {
         gsap.to(popupCats, {
-          opacity: 0,
-          scale: 0.8,
+         
           duration: 0.3,
           ease: "power2.in",
           onComplete: () => {
@@ -450,7 +447,6 @@ document.addEventListener("DOMContentLoaded", () => {
             focusSect.style.display = "none";
             promptSect.style.display = "flex";
             gsap.from(promptSect, {
-              opacity: 0,
               y: 20,
               duration: 0.5,
               ease: "power2.out"
@@ -473,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Animate the text change
         gsap.to(promptText, {
-          opacity: 0,
+        
           duration: 0.3,
           ease: "power2.inOut",
           onComplete: () => {
@@ -503,7 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // esconder y mostrar timers
     gsap.to(promptSect, {
-      opacity: 0,
+      
       y: -20,
       duration: 0.3,
       ease: "power2.in",
