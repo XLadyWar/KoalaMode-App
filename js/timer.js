@@ -58,10 +58,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isPaused) {
       // modo pausa
       gsap.to(body, {
-        background: "linear-gradient(180deg, var(--pausa-bg-1) 0%, var(--pausa-bg-2) 50%, var(--pausa-bg-3) 100%)",
+        backgroundColor: 'var(--pausa-bg-3)',
         duration: 0.5,
         ease: "power2.inOut"
       });
+
+      // Actualizar colores de los blobs
+      window.updateBlobColors('pausa');
 
       // modo pausa gradiente circulo
       const gradient = document.querySelector("#gradient");
@@ -82,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       gsap.to(".ring-bg", {
-        stroke: "#0D08C7",
+        stroke: "var(--pausa-bg-3)",
         duration: 0.5,
         ease: "power2.inOut"
       });
@@ -119,10 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (isRest) {
       // Koala mode colores
       gsap.to(body, {
-        background: "linear-gradient(180deg, #1F5F50 0%, #E1F3C1 50%, #E1F3C1 100%)",
+        backgroundColor: 'var(--descaso-bg-1)',
         duration: 0.5,
         ease: "power2.inOut"
       });
+
+      // Actualizar colores de los blobs
+      window.updateBlobColors('koala');
 
       // animacion circulo koala mode
       const gradient = document.querySelector("#gradient");
@@ -143,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       gsap.to(".ring-bg", {
-        stroke: "#1F5F50",
+        stroke: "var(--descaso-bg-1)",
         duration: 0.5,
         ease: "power2.inOut"
       });
@@ -199,10 +205,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Focus mode colores
       gsap.to(body, {
-        background: "linear-gradient(180deg, var(--enfoque-bg-1), var(--enfoque-bg-2), var(--enfoque-bg-3))",
+        backgroundColor: 'var(--bg-cream)',
         duration: 0.5,
         ease: "power2.inOut"
       });
+
+      // Actualizar colores de los blobs
+      window.updateBlobColors('enfoque');
 
       // animacion de circulo,  focus mode
       const gradient = document.querySelector("#gradient");
@@ -223,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       gsap.to(".ring-bg", {
-        stroke: "#eee",
+        stroke: "var(--enfoque-bg-1)",
         duration: 0.5,
         ease: "power2.inOut"
       });

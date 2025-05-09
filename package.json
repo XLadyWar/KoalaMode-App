@@ -1,0 +1,9 @@
+{
+  "name": "koala-mode",
+  "version": "1.0.0",
+  "description": "Koala Mode Website",
+  "main": "index.js",
+  "dependencies": {
+    "gsap": "^3.12.5"
+  }
+} 
