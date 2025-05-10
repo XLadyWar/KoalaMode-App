@@ -4,11 +4,12 @@
   right: -100%;
   width: 25%;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   z-index: 2000;
   transition: right 0.3s ease-in-out;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .menu-overlay.active {
@@ -106,8 +107,8 @@
   transform: translate(-50%, -50%);
   background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   z-index: 3000;
   width: 90%;
   max-width: 400px;
@@ -134,17 +135,23 @@
 
 .edit-form input {
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   border: 2px solid var(--koala-brown);
   border-radius: 8px;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .edit-form input:focus {
   outline: none;
   border-color: var(--koala-green);
+  box-shadow: 0 0 0 3px rgba(75, 166, 101, 0.2);
+}
+
+.edit-form input::placeholder {
+  color: #999;
 }
 
 .edit-form-buttons {
@@ -161,6 +168,7 @@
   transition: all 0.3s ease;
   font-weight: 600;
   font-size: 1rem;
+  min-width: 100px;
 }
 
 .save-button {
@@ -171,6 +179,7 @@
 .save-button:hover {
   background-color: #2e7d32;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
 }
 
 .cancel-button {
@@ -181,6 +190,7 @@
 .cancel-button:hover {
   background-color: #d0d0d0;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes popupFadeIn {

@@ -104,12 +104,17 @@ const menuItems = document.querySelectorAll('.menu-item');
 // Load saved values
 function loadSavedValues() {
   const userName = localStorage.getItem('userName') || 'Usuario';
-  const focusTime = localStorage.getItem('focusTime') || '25';
-  const breakTime = localStorage.getItem('breakTime') || '5';
+  const focusTime = localStorage.getItem('focusMins') || '25';
+  const breakTime = localStorage.getItem('restMins') || '5';
 
   document.getElementById('user-name-value').textContent = userName;
   document.getElementById('focus-time-value').textContent = `${focusTime} min`;
   document.getElementById('break-time-value').textContent = `${breakTime} min`;
+
+  const nombreUsuario = document.getElementById('nombre-usuario');
+  if (nombreUsuario) {
+    nombreUsuario.textContent = userName;
+  }
 }
 
 // Toggle menu
@@ -143,27 +148,83 @@ function handleEditClick(menuItem) {
 function handleSaveClick(form) {
   const type = form.id.replace('-form', '');
   const input = form.querySelector('input');
-  const valueDisplay = document.getElementById(`${type}-time-value`) || document.getElementById('user-name-value');
-  const menuItem = document.querySelector(`[data-type="${type}"]`);
+  const valueDisplay = document.getElementById(`${type}-time-value`);
+  const minutes = parseInt(input.value);
+  const maxMinutes = type === 'focus' ? 60 : 30;
 
-  let newValue = input.value.trim();
+  if (minutes && minutes > 0 && minutes <= maxMinutes) {
+    // Limpiar y guardar en localStorage
+    const key = type === 'focus' ? 'focusMins' : 'restMins';
+    localStorage.removeItem(key); // Limpiar el valor anterior
+    localStorage.setItem(key, minutes.toString());
+    valueDisplay.textContent = `${minutes} min`;
 
-  if (type === 'name') {
-    if (newValue) {
-      localStorage.setItem('userName', newValue);
-      valueDisplay.textContent = newValue;
-      document.getElementById('nombre-usuario').textContent = newValue;
+    if (typeof window.updateTimerDurations === 'function') {
+      window.updateTimerDurations();
     }
+    
+    
+    // Actualizar y resetear el timer si está en la página
+    const timerDisplay = document.getElementById('timer-display');
+    if (timerDisplay) {
+      const isRestMode = document.body.classList.contains('rest-mode');
+      if ((type === 'focus' && !isRestMode) || (type === 'break' && isRestMode)) {
+        // Detener el timer actual y limpiar cualquier intervalo existente
+        if (window.timerInterval) {
+          clearInterval(window.timerInterval);
+          window.timerInterval = null;
+        }
+        
+        // Detener cualquier animación existente
+        if (window.fillAnim) {
+          window.fillAnim.kill();
+          window.fillAnim = null;
+        }
+        
+        // Actualizar las variables globales del timer
+        const newSeconds = minutes * 60;
+        window.remaining = newSeconds;
+        window.duration = newSeconds;
+        
+        // Resetear la animación del círculo
+        const maskRect = document.getElementById('mask-rect');
+        if (maskRect) {
+          gsap.set(maskRect, { attr: { y: 300 } });
+          window.fillAnim = gsap.timeline({ paused: true })
+            .to(maskRect, {
+              attr: { y: 0 },
+              duration: newSeconds,
+              ease: "none"
+            });
+        }
+        
+        // Actualizar el display del timer con el nuevo valor
+        timerDisplay.textContent = formatTime(newSeconds);
+        
+        // Forzar el timer a pausado
+        window.isPaused = true;
+        
+        // Actualizar el botón de play/pause si existe
+        const playPauseButton = document.querySelector('.play-pause-button');
+        if (playPauseButton) {
+          playPauseButton.classList.remove('paused');
+          playPauseButton.classList.add('playing');
+        }
+      }
+    }
+    
+    form.classList.remove('active');
   } else {
-    const minutes = parseInt(newValue);
-    if (minutes && minutes > 0) {
-      const key = type === 'focus' ? 'focusTime' : 'breakTime';
-      localStorage.setItem(key, minutes.toString());
-      valueDisplay.textContent = `${minutes} min`;
-    }
+    alert(`Por favor ingresa un número válido entre 1 y ${maxMinutes} minutos`);
+    input.focus();
   }
+}
 
-  form.classList.remove('active');
+// Función auxiliar para formatear el tiempo
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 // Handle cancel button clicks

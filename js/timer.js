@@ -3,8 +3,8 @@ import { playFocusEndSound, playKoalaEndSound, playTimerEndSound } from './sonid
 document.addEventListener("DOMContentLoaded", () => {
   // Recuperar datos
   const userName   = localStorage.getItem("userName")   || "Koala";
-  const focusMins  = parseInt(localStorage.getItem("focusMins"),10) || 25;
-  const restMins   = parseInt(localStorage.getItem("restMins"),10) || 5;
+  let focusMins  = parseInt(localStorage.getItem("focusMins"),10) || 25;
+  let restMins   = parseInt(localStorage.getItem("restMins"),10) || 5;
   const categories = JSON.parse(localStorage.getItem("categories") || "[]");
 
   // Elementos del DOM
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isRestTimer = false;
 
   gsap.set(maskRect, { attr: { y: 300 } });
-  const fillAnim = gsap.timeline({ paused: true })
+  let fillAnim = gsap.timeline({ paused: true })
   .to(maskRect, {
     attr: { y: 0 },           
     duration: duration,
@@ -297,11 +297,26 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     clearInterval(iv);
-    iv = setInterval(() => {
+    
+    // Create smooth animation
+    let startTime = Date.now();
+    let animationFrame;
+    
+    function animate() {
+      const elapsed = (Date.now() - startTime) / 1000;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Update remaining time
+      remaining = Math.max(duration - Math.floor(elapsed), 0);
+      update();
+      
+      // Update circle with smooth easing
+      fillAnim.progress(progress);
+      
       if (remaining > 0) {
-        remaining--; update();
+        animationFrame = requestAnimationFrame(animate);
       } else {
-        clearInterval(iv);
+        cancelAnimationFrame(animationFrame);
         if (isRestTimer) {
           playTimerEndSound(isRestTimer);
           // reinicia timer
@@ -331,16 +346,16 @@ document.addEventListener("DOMContentLoaded", () => {
           showPopup();
         }
       }
-    }, 1000);
+    }
     
     // Solo resetear y mostrar la animación de fill si es un nuevo timer
     if (remaining === duration) {
       fillAnim.pause(0);
       gsap.set(maskRect, { attr: { y: 300 } });
-      fillAnim.play();
-    } else {
-      fillAnim.play();
     }
+    
+    // Start smooth animation
+    animate();
   }
 
   function pauseClock(){
@@ -641,5 +656,54 @@ document.addEventListener("DOMContentLoaded", () => {
   playBtn.onclick = () => {
     startClock();
     updateVisualMode(isRestTimer, false);
+  };
+
+  // Add event listener for timer duration changes
+  document.addEventListener('timerDurationChanged', (e) => {
+    const { focusMins: newFocusMins, restMins: newRestMins } = e.detail;
+    
+    // Update durations
+    focusMins = newFocusMins;
+    restMins = newRestMins;
+    
+    // Update current timer if not running
+    if (!iv) {
+      duration = isRestTimer ? restMins * 60 : focusMins * 60;
+      remaining = duration;
+      update();
+    }
+  });
+
+  // Function to update timer durations from localStorage
+  window.updateTimerDurations = function () {
+    focusMins = parseInt(localStorage.getItem("focusMins"), 10) || 25;
+    restMins = parseInt(localStorage.getItem("restMins"), 10) || 5;
+
+    duration = (isRestTimer ? restMins : focusMins) * 60;
+    remaining = duration;
+
+    // Reset and update fill animation
+    if (fillAnim) {
+      fillAnim.kill();
+    }
+    
+    // Create new animation that matches the timer duration
+    fillAnim = gsap.timeline({ paused: true })
+      .to(maskRect, {
+        attr: { y: 0 },
+        duration: duration,
+        ease: "none"
+      });
+    
+    // Reset position and pause
+    gsap.set(maskRect, { attr: { y: 300 } });
+    fillAnim.progress(0).pause();
+
+    // If timer is running, restart the animation
+    if (iv) {
+      fillAnim.play();
+    }
+
+    update(); // actualiza el texto en pantalla
   };
 });
