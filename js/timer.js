@@ -321,7 +321,8 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.set(maskRect, { attr: { y: 300 } });
           fillAnim.pause(0);
           
-          // No iniciamos automáticamente, esperamos al usuario
+          // No start timer automatically
+          // startClock();
         } else {
           playTimerEndSound(isRestTimer);
           // focus mode terminado - mostrar pop up 
@@ -626,6 +627,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize with focus mode colors
   updateVisualMode(false);
+
+  // Start timer automatically
+  startClock();
 
   // Update pause button click handler
   pauseBtn.onclick = () => {
